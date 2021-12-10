@@ -15,7 +15,7 @@
     <div class="form-group m-3" *ngIf="question == 2">
       <label for="name">ID Number</label>
       <input (change)="idNumber($event)" [ngClass]="{
-          'is-invalid': question == 2 && next_clicked == true && id_no.errors
+          'is-invalid': question == 2 && alert == true && id_no.errors
         }" type="text" class="form-control" placeholder="ID No" id="id_no" [(ngModel)]="newApplication.id_no"
         name="id_no" #id_no="ngModel" required />
     </div>
@@ -95,7 +95,7 @@
       <label for="name">Monthly amount of existing loan</label>
       <input (change)="monthlyLoanAmount($event)" type="number" class="form-control" placeholder="In $"
         id="monthly_loan" [min]="0" [(ngModel)]="newApplication.monthly_amount_of_existing_loan"
-        name="monthly_amount_of_existing_loan" #monthly_amount_of_existing_loan="ngModel" required />
+        name="monthly_amount_of_existing_loan" #monthly_amount_of_existing_loan="ngModel"  />
     </div>
 
     <div class="form-group m-3" *ngIf="question == 14">

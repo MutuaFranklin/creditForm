@@ -15,8 +15,10 @@ export class FormComponent implements OnInit {
 
   input: any;
   question = 1;
-  next_clicked = false
+  alert:any = false;
   current_view = this.question
+
+
 
   step: any = 1;
   submitted: any = false;
@@ -159,25 +161,27 @@ export class FormComponent implements OnInit {
 
   next(){
       if (this.question == 1){
-        if (this.first_name.length > 0){
-          if (this.last_name.length > 0){
+        this.alert = false
 
+        if (this.first_name && this.last_name){
           this.question= this.question + 1
-
-          }
-        else{
-          this.next_clicked = true
         }
-
+        else if (this .question == 1 && !this.first_name || !this.last_name){
+          this.alert = true
         }
-
 
       }
 
       if (this.question == 2){
-        if (this.id_number.length > 0){
+        this.alert = false
+
+        if (this.id_number){
           this.question= this.question + 1
 
+        }
+
+        else{
+          this.alert = true
         }
       }
 
@@ -189,14 +193,14 @@ export class FormComponent implements OnInit {
       }
 
       if (this.question == 4){
-        if (this.phone_number.length > 0){
+        if (this.phone_number){
           this.question= this.question + 1
 
         }
       }
 
       if (this.question == 5){
-        if (this.email_address.length > 0){
+        if (this.email_address){
           this.question= this.question + 1
 
         }
@@ -210,21 +214,21 @@ export class FormComponent implements OnInit {
       }
 
       if (this.question == 7){
-        if (this.marital_status.length > 0){
+        if (this.marital_status){
           this.question= this.question + 1
 
         }
       }
 
       if (this.question == 8){
-        if (this.work_place.length > 0){
+        if (this.work_place){
           this.question= this.question + 1
 
         }
       }
 
       if (this.question == 9){
-        if (this.job_title.length > 0){
+        if (this.job_title){
           this.question= this.question + 1
 
         }
@@ -245,13 +249,13 @@ export class FormComponent implements OnInit {
       }
 
       if (this.question == 12 && this.ongoing_loan == 'Yes') {
-        if (this.ongoing_loan.length > 0){
+        if (this.ongoing_loan){
           this.question= this.question + 1
 
         }
       }
       else if (this.question == 12 && this.ongoing_loan == 'No') {
-        if (this.ongoing_loan.length > 0){
+        if (this.ongoing_loan){
           this.question= this.question + 2
 
         }
@@ -264,28 +268,28 @@ export class FormComponent implements OnInit {
       }
 
       if (this.question == 14){
-        if (this.occupancy_status.length > 0){
+        if (this.occupancy_status){
           this.question= this.question + 1
 
         }
       }
 
       if (this.question == 15){
-        if (this.type_of_purchase.length > 0){
+        if (this.type_of_purchase){
           this.question= this.question + 1
 
         }
       }
 
       if (this.question == 16){
-        if (this.bank_name.length > 0){
+        if (this.bank_name){
           this.question= this.question + 1
 
         }
       }
 
       if (this.question == 17){
-        if (this.bank_branch.length > 0){
+        if (this.bank_branch){
           this.question= this.question + 1
 
         }
