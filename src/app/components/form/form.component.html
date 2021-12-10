@@ -1,0 +1,163 @@
+<form #applicationForm="ngForm" (ngSubmit)="submitApplication()" enctype="multipart/form-data" class="appForm">
+  <div class="col-md-5 form-input">
+    <div class="form-group m-3" *ngIf="question == 1">
+      <label for="name">Full Name</label>
+      <div class="full-name d-flex">
+        <input (change)="firstName($event)" [ngClass]="{ 'is-invalid': question == 1 && first_name.errors }" type="text"
+          class="form-control nip" placeholder="First Name" id="first_name" [(ngModel)]="newApplication.first_name"
+          name="first_name" #first_name="ngModel" required />
+
+        <input (change)="lastName($event)" [ngClass]="{ 'is-invalid': question == 1 && first_name.errors }" type="text"
+          class="form-control" placeholder="Last Name" id="last_name" [(ngModel)]="newApplication.last_name"
+          name="last_name" #last_name="ngModel" required />
+      </div>
+    </div>
+    <div class="form-group m-3" *ngIf="question == 2">
+      <label for="name">ID Number</label>
+      <input (change)="idNumber($event)" [ngClass]="{
+          'is-invalid': question == 2 && next_clicked == true && id_no.errors
+        }" type="text" class="form-control" placeholder="ID No" id="id_no" [(ngModel)]="newApplication.id_no"
+        name="id_no" #id_no="ngModel" required />
+    </div>
+    <div class="form-group m-3" *ngIf="question == 3">
+      <label for="name">ID Upload</label>
+      <input (change)="idUpload($event)" type="file" class="form-control" placeholder="ID upload" id="id_upload"
+        [(ngModel)]="newApplication.id_upload" name="id_upload" #id_upload="ngModel" required />
+    </div>
+
+    <div class="form-group m-3" *ngIf="question == 4">
+      <label for="name">Phone Number</label>
+      <input (change)="phoneNumber($event)" type="text" class="form-control" placeholder="Phone Number"
+        id="phone_number" [(ngModel)]="newApplication.phone_number" name="phone_number" #phone_number="ngModel"
+        required />
+    </div>
+
+    <div class="form-group m-3" *ngIf="question == 5">
+      <label for="name">Email</label>
+      <input (change)="emailAddress($event)" type="email" class="form-control" placeholder="email" id="email"
+        [(ngModel)]="newApplication.email" name="email" #email="ngModel" required />
+    </div>
+
+    <div class="form-group m-3" *ngIf="question == 6">
+      <label for="name">Date of Birth</label>
+      <input (change)="dateOfBirth($event)" type="date" class="form-control" placeholder="DOB" id="dob"
+        [(ngModel)]="newApplication.dob" name="dob" #dob="ngModel" required />
+    </div>
+
+    <div class="form-group m-3" *ngIf="question == 7">
+      <label for="name">Marital Status</label>
+      <select (change)="maritalStatus($event)" class="form-select" aria-placeholder="select"
+        aria-label="Default select example" id="marital_status" [(ngModel)]="newApplication.marital_status"
+        name="marital_status" #marital_status="ngModel" required>
+        <option value="" disabled selected>Select your option</option>
+        <option value="Single">Single</option>
+        <option value="Married">Married</option>
+        <option value="Divorced">Divorced</option>
+        <option value="Windowed">Windowed</option>
+      </select>
+    </div>
+
+    <div class="form-group m-3" *ngIf="question == 8">
+      <label for="name">Place Of Work</label>
+      <input (change)="workPlace($event)" type="text" class="form-control" placeholder="Place of Work"
+        id="place_of_work" [(ngModel)]="newApplication.place_of_work" name="place_of_work" #place_of_work="ngModel"
+        required />
+    </div>
+    <div class="form-group m-3" *ngIf="question == 9">
+      <label for="name">Job Title</label>
+      <input (change)="jobTitle($event)" type="text" class="form-control" placeholder="" id="job_title"
+        [(ngModel)]="newApplication.job_title" name="job_title" #job_title="ngModel" required />
+    </div>
+    <div class="form-group m-3" *ngIf="question == 10">
+      <label for="name">Monthly Net Income</label>
+      <input (change)="monthlyNetIncome($event)" type="number" class="form-control" placeholder="In $" id="monthly_net"
+        [min]="0" [(ngModel)]="newApplication.monthly_net_income" name="monthly_net_income"
+        #monthly_net_income="ngModel" required />
+    </div>
+    <div class="form-group m-3" *ngIf="question == 11">
+      <label for="name">Proof of Monthly Income</label>
+      <input (change)="incomeProof($event)" type="file" class="form-control" placeholder="proof_of_income"
+        id="proof_of_income" [(ngModel)]="newApplication.proof_of_income" name="proof_of_income"
+        #proof_of_income="ngModel" required />
+    </div>
+
+    <div class="form-group m-3" *ngIf="question == 12">
+      <label for="name">Do you have an ongoing loan?</label>
+      <select (change)="ongoingLoan($event)" class="form-select" aria-placeholder="select"
+        aria-label="Default select example" id="marital_status" [(ngModel)]="newApplication.marital_status"
+        name="marital_status" #marital_status="ngModel" required>
+        <option value="" disabled selected>Select your option</option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+      </select>
+    </div>
+    <div class="form-group m-3" *ngIf="question == 13">
+      <label for="name">Monthly amount of existing loan</label>
+      <input (change)="monthlyLoanAmount($event)" type="number" class="form-control" placeholder="In $"
+        id="monthly_loan" [min]="0" [(ngModel)]="newApplication.monthly_amount_of_existing_loan"
+        name="monthly_amount_of_existing_loan" #monthly_amount_of_existing_loan="ngModel" required />
+    </div>
+
+    <div class="form-group m-3" *ngIf="question == 14">
+      <label for="name">Your current occupancy status</label>
+      <select (change)="occupancyStatus($event)" class="form-select" aria-placeholder="select"
+        aria-label="Default select example" id="occupancy_status" [(ngModel)]="newApplication.current_occupancy_status"
+        name="current_occupancy_status" #current_occupancy_status="ngModel" required>
+        <option value="" disabled selected>Select your option</option>
+        <option value="Homeowner">Homeowner</option>
+        <option value="Tenant">Tenant</option>
+        <option value="Living with Parent/relatives/friend">
+          Living with Parent/relatives/friend
+        </option>
+        <option value="Living in a hotel">Living in a hotel</option>
+      </select>
+    </div>
+
+    <div class="form-group m-3" *ngIf="question == 15">
+      <label for="name">Type of Purchase</label>
+      <select (change)="purchaseType($event)" class="form-select" aria-placeholder="select"
+        aria-label="Default select example" id="purchase_type" [(ngModel)]="newApplication.type_of_purchase"
+        name="type_of_purchase" #type_of_purchase="ngModel" required>
+        <option value="" disabled selected>Select your option</option>
+        <option value="Primary Residence">Primary Residence</option>
+        <option value="Secondary Residence">Secondary Residence</option>
+        <option value="Investment">Investment</option>
+        <option value="Close Person Residence">Close Person Residence</option>
+      </select>
+    </div>
+
+    <div class="form-group m-3" *ngIf="question == 16">
+      <label for="name">Bank Name</label>
+      <input (change)="bankName($event)" type="text" class="form-control" placeholder="Your bank name" id="bank_name"
+        [(ngModel)]="newApplication.bank_name" name="bank_name" #bank_name="ngModel" required />
+    </div>
+
+    <div class="form-group m-3" *ngIf="question == 17">
+      <label for="name">Bank Branch</label>
+      <input (change)="bankBranch($event)" type="text" class="form-control" placeholder="" id="bank_branch"
+        [(ngModel)]="newApplication.bank_branch" name="bank_branch" #bank_branch="ngModel" required />
+    </div>
+
+    <div class="form-group m-3" *ngIf="question == 18">
+      <label for="name">Bank Account Number</label>
+      <input (change)="bankAccount($event)" type="text" class="form-control" placeholder="" id="account_number"
+        [(ngModel)]="newApplication.account_number" name="account_number" #account_number="ngModel" required />
+    </div>
+
+    <div class="form-group m-3 buttons">
+      <button class="prev" *ngIf="question >= 2 && question <= 18" (click)="previous()">
+        Previous
+      </button>
+
+      <button class="next" *ngIf="question <= 18" (click)="next()">Next</button>
+    </div>
+  </div>
+
+  <div class="container-fluid details" *ngIf="question == 19">
+    <h6>Details</h6>
+    <p>Full Name: {{ first_name }} {{ last_name }}</p>
+    <p>ID: {{ id_number }}</p>
+    <p>ID Upload{{ id_upload }}</p>
+    <p>Phone Number: {{ phone_number }}</p>
+  </div>
+</form>
