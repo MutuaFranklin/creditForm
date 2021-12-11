@@ -3,7 +3,7 @@
     <div class="form-group m-3" *ngIf="question == 1">
       <label for="name">Full Name</label>
       <div class="full-name d-flex">
-        <input (change)="firstName($event)" [ngClass]="{ 'is-invalid': question == 1 && first_name.errors }" type="text"
+        <input (change)="firstName($event)"  type="text"
           class="form-control nip" placeholder="First Name" id="first_name" [(ngModel)]="newApplication.first_name"
           name="first_name" #first_name="ngModel" required />
 
@@ -11,11 +11,12 @@
           class="form-control" placeholder="Last Name" id="last_name" [(ngModel)]="newApplication.last_name"
           name="last_name" #last_name="ngModel" required />
       </div>
+
     </div>
     <div class="form-group m-3" *ngIf="question == 2">
       <label for="name">ID Number</label>
       <input (change)="idNumber($event)" [ngClass]="{
-          'is-invalid': question == 2 && alert == true && id_no.errors
+          'is-invalid': question == 2 && form_alert == true && id_no.errors
         }" type="text" class="form-control" placeholder="ID No" id="id_no" [(ngModel)]="newApplication.id_no"
         name="id_no" #id_no="ngModel" required />
     </div>
@@ -42,6 +43,9 @@
       <label for="name">Date of Birth</label>
       <input (change)="dateOfBirth($event)" type="date" class="form-control" placeholder="DOB" id="dob"
         [(ngModel)]="newApplication.dob" name="dob" #dob="ngModel" required />
+        <span *ngIf="form_alert == true" style="color: red;">
+          invalid form
+        </span>
     </div>
 
     <div class="form-group m-3" *ngIf="question == 7">

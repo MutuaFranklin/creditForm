@@ -15,7 +15,7 @@ export class FormComponent implements OnInit {
 
   input: any;
   question = 1;
-  alert:any = false;
+  form_alert:any = false;
   current_view = this.question
 
 
@@ -42,6 +42,7 @@ export class FormComponent implements OnInit {
   bank_name!: string;
   bank_branch!: string;
   bank_account!: string;
+  CurrentDate = new Date();
 
 
 
@@ -161,19 +162,17 @@ export class FormComponent implements OnInit {
 
   next(){
       if (this.question == 1){
-        this.alert = false
 
         if (this.first_name && this.last_name){
           this.question= this.question + 1
         }
         else if (this .question == 1 && !this.first_name || !this.last_name){
-          this.alert = true
+          this.form_alert = true
         }
 
       }
 
       if (this.question == 2){
-        this.alert = false
 
         if (this.id_number){
           this.question= this.question + 1
@@ -181,7 +180,7 @@ export class FormComponent implements OnInit {
         }
 
         else{
-          this.alert = true
+          this.form_alert = true
         }
       }
 
@@ -207,9 +206,13 @@ export class FormComponent implements OnInit {
       }
 
       if (this.question == 6){
-        if (this.dob){
+        if (this.dob && new Date(this.dob) < this.CurrentDate) {
           this.question= this.question + 1
 
+        }
+
+        else if (this.dob && new Date(this.dob) > this.CurrentDate){
+          this.form_alert ==true
         }
       }
 
