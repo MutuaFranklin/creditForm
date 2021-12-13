@@ -16,6 +16,8 @@ export class FormComponent implements OnInit {
   question = 1;
   submitted: any = false;
   ongoing_loan_payment!: string;
+  status: boolean = false;
+  multistep_submit:boolean = false;
 
   ongoingLoanPayment(event:any){
     this.ongoing_loan_payment = event.target.value;
@@ -161,14 +163,14 @@ get bankAccount(){
   ngOnInit(): void {
 
       // Jquery
-      $('.final-btn').on('click', function () {
-        $('.form-input').hide();
-        $('.details').fadeIn(1000);
-        // $('.details').css("display", "flex");
+      // $('.final-btn').on('click', function () {
+      //   $('.form-input').hide();
+      //   $('.details').fadeIn(1000);
+      //   $('.details').css("display", "flex");
 
 
 
-      });
+      // });
 
   }
 
@@ -297,6 +299,13 @@ get bankAccount(){
 
     }
 
+    if( this.multistep_submit){
+      // console.warn(this.multistep.value)
+      alert("Form submitted successfully")
+
+    }
+
+
 
   }
 
@@ -311,8 +320,26 @@ get bankAccount(){
     }
   }
 
+clickEvent(){
+  if(this.multistep.controls['bankAccount'].invalid && this.question == 15) {
+    this.submitted = true;
+    return;
+  }
+    this.status = !this.status;
+}
+
   makeChanges() {
-          this.question= 1
+
+      this.question= 1
+      this.status = false;
+      this.multistep_submit = false
+
+
+
+    }
+
+    submitForm() {
+      this.multistep_submit = !this.multistep_submit
 
     }
 
