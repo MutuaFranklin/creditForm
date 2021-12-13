@@ -1,112 +1,139 @@
-<form #applicationForm="ngForm" (ngSubmit)="submitApplication()" enctype="multipart/form-data" class="appForm">
+<form (ngSubmit)="submit()" enctype="multipart/form-data" class="appForm" [formGroup]="multistep">
   <div class="col-md-5 form-input">
-    <div class="form-group m-3" *ngIf="question == 1">
+    <div class="form-group m-3" *ngIf="question == 1" formGroupName="fullName">
       <label for="name">Full Name</label>
       <div class="full-name d-flex">
-        <input (change)="firstName($event)"  type="text"
-          class="form-control nip" placeholder="First Name" id="first_name" [(ngModel)]="newApplication.first_name"
-          name="first_name" #first_name="ngModel" required />
+        <input type="text" class="form-control" formControlName="first_name"  id="exampleInputEmail1" aria-describedby="emailHelp"
+          placeholder="First Name">
 
-        <input (change)="lastName($event)" [ngClass]="{ 'is-invalid': question == 1 && first_name.errors }" type="text"
-          class="form-control" placeholder="Last Name" id="last_name" [(ngModel)]="newApplication.last_name"
-          name="last_name" #last_name="ngModel" required />
+          <input type="text" class="form-control" formControlName="last_name"  id="exampleInputEmail1" aria-describedby="emailHelp"
+          placeholder="Last Name">
+          <!-- {{fullName['first_name'].value}} -->
+
       </div>
+      <div class="form-errors mt-2">
+        <!-- first name errors -->
+         <span class="text-danger" *ngIf="submitted && fullName['first_name'].errors?.['required']">Please enter your first name</span>
+         <span class="text-danger" *ngIf="submitted && fullName['first_name'].errors?.['minlength']">First name should not be less than 3 characters</span>
 
+          <!-- last name erors -->
+         <span class="text-danger" *ngIf="submitted && fullName['last_name'].errors?.['required']">Please enter your last name</span>
+         <span class="text-danger" *ngIf="submitted && fullName['last_name'].errors?.['minlength']">Last name should not be less than 3 characters</span>
+
+      </div>
     </div>
-    <div class="form-group m-3" *ngIf="question == 2">
+
+    <div class="form-group m-3" *ngIf="question == 2" formGroupName="idNumber">
       <label for="name">ID Number</label>
-      <input (change)="idNumber($event)" [ngClass]="{
-          'is-invalid': question == 2 && form_alert == true && id_no.errors
-        }" type="text" class="form-control" placeholder="ID No" id="id_no" [(ngModel)]="newApplication.id_no"
-        name="id_no" #id_no="ngModel" required />
+      <input type="text" class="form-control" formControlName="id_number"  id="exampleInputEmail1" aria-describedby="emailHelp"
+          placeholder="ID Number">
+      <div class="form-errors mt-2">
+        <span class="text-danger" *ngIf="submitted && idNumber['id_number'].errors?.['required']">Please enter your ID Number</span>
+        <span class="text-danger" *ngIf="submitted && idNumber['id_number'].errors?.['pattern']">identity number should be all digits</span>
+        <span class="text-danger" *ngIf="submitted && idNumber['id_number'].errors?.['minlength']">identity number digits should be not less than 8</span>
+      </div>
     </div>
-    <div class="form-group m-3" *ngIf="question == 3">
+    <div class="form-group m-3" *ngIf="question == 3" formGroupName="idUpload">
       <label for="name">ID Upload</label>
-      <input (change)="idUpload($event)" type="file" class="form-control" placeholder="ID upload" id="id_upload"
-        [(ngModel)]="newApplication.id_upload" name="id_upload" #id_upload="ngModel" required />
+      <input type="file" class="form-control" formControlName="id_upload"  id="exampleInputEmail1" aria-describedby="emailHelp"
+          placeholder="ID Upload">
+      <div class="form-errors mt-2">
+        <span class="text-danger" *ngIf="submitted && idUpload['id_upload'].errors?.['required']">Please attach your ID copy</span>
+      </div>
     </div>
-
-    <div class="form-group m-3" *ngIf="question == 4">
+    <div class="form-group m-3" *ngIf="question == 4" formGroupName="phoneNumber">
       <label for="name">Phone Number</label>
-      <input (change)="phoneNumber($event)" type="text" class="form-control" placeholder="Phone Number"
-        id="phone_number" [(ngModel)]="newApplication.phone_number" name="phone_number" #phone_number="ngModel"
-        required />
+      <input type="text" class="form-control" formControlName="phone_number"  id="exampleInputEmail1" aria-describedby="emailHelp"
+          placeholder="Phone Number">
+      <span class="text-danger mt-4" *ngIf="submitted && phoneNumber['phone_number'].errors?.['required']">Please enter your Phone Number</span>
+      <span class="text-danger mt-4" *ngIf="submitted && phoneNumber['phone_number'].errors?.['pattern']">Phone number is not 10 digit</span>
+    </div>
+    <div class="form-group m-3" *ngIf="question == 5" formGroupName="emailAddress">
+      <label for="name">Email Address</label>
+      <input type="email" class="form-control" formControlName="email"  id="exampleInputEmail1" aria-describedby="emailHelp"
+          placeholder="Email Address">
+      <div class="form-errors mt-2">
+        <span class="text-danger" *ngIf="submitted && emailAddress['email'].errors?.['required']">Please enter your email address</span>
+        <span class="text-danger" *ngIf="submitted && emailAddress['email'].errors?.['email']">Invalid email address</span>
+      </div>
     </div>
 
-    <div class="form-group m-3" *ngIf="question == 5">
-      <label for="name">Email</label>
-      <input (change)="emailAddress($event)" type="email" class="form-control" placeholder="email" id="email"
-        [(ngModel)]="newApplication.email" name="email" #email="ngModel" required />
-    </div>
-
-    <div class="form-group m-3" *ngIf="question == 6">
-      <label for="name">Date of Birth</label>
-      <input (change)="dateOfBirth($event)" type="date" class="form-control" placeholder="DOB" id="dob"
-        [(ngModel)]="newApplication.dob" name="dob" #dob="ngModel" required />
-        <span *ngIf="form_alert == true" style="color: red;">
-          invalid form
-        </span>
-    </div>
-
-    <div class="form-group m-3" *ngIf="question == 7">
+    <div class="form-group m-3" *ngIf="question == 6" formGroupName="maritalStatus">
       <label for="name">Marital Status</label>
-      <select (change)="maritalStatus($event)" class="form-select" aria-placeholder="select"
-        aria-label="Default select example" id="marital_status" [(ngModel)]="newApplication.marital_status"
-        name="marital_status" #marital_status="ngModel" required>
+      <select  class="form-select" formControlName="marital_status" aria-placeholder="select"
+        aria-label="Default select example" id="marital_status"
+        name="marital_status" required>
         <option value="" disabled selected>Select your option</option>
         <option value="Single">Single</option>
         <option value="Married">Married</option>
         <option value="Divorced">Divorced</option>
         <option value="Windowed">Windowed</option>
       </select>
+      <div class="form-errors mt-2">
+        <span class="text-danger" *ngIf="submitted && maritalStatus['marital_status'].errors?.['required']">Please select your marital status</span>
+      </div>
     </div>
-
-    <div class="form-group m-3" *ngIf="question == 8">
-      <label for="name">Place Of Work</label>
-      <input (change)="workPlace($event)" type="text" class="form-control" placeholder="Place of Work"
-        id="place_of_work" [(ngModel)]="newApplication.place_of_work" name="place_of_work" #place_of_work="ngModel"
-        required />
+    <div class="form-group m-3" *ngIf="question == 7" formGroupName="workPlace">
+      <label for="name">Work Place</label>
+      <input type="text" class="form-control" formControlName="work_place"  id="exampleInputEmail1" aria-describedby="emailHelp"
+          placeholder="Work Place">
+      <div class="form-errors mt-2">
+        <span class="text-danger" *ngIf="submitted && workPlace['work_place'].errors?.['required']">Please enter your place of work</span>
+      </div>
     </div>
-    <div class="form-group m-3" *ngIf="question == 9">
+    <div class="form-group m-3" *ngIf="question == 8" formGroupName="jobTitle">
       <label for="name">Job Title</label>
-      <input (change)="jobTitle($event)" type="text" class="form-control" placeholder="" id="job_title"
-        [(ngModel)]="newApplication.job_title" name="job_title" #job_title="ngModel" required />
-    </div>
-    <div class="form-group m-3" *ngIf="question == 10">
-      <label for="name">Monthly Net Income</label>
-      <input (change)="monthlyNetIncome($event)" type="number" class="form-control" placeholder="In $" id="monthly_net"
-        [min]="0" [(ngModel)]="newApplication.monthly_net_income" name="monthly_net_income"
-        #monthly_net_income="ngModel" required />
-    </div>
-    <div class="form-group m-3" *ngIf="question == 11">
-      <label for="name">Proof of Monthly Income</label>
-      <input (change)="incomeProof($event)" type="file" class="form-control" placeholder="proof_of_income"
-        id="proof_of_income" [(ngModel)]="newApplication.proof_of_income" name="proof_of_income"
-        #proof_of_income="ngModel" required />
+      <input type="text" class="form-control" formControlName="job_title"  id="exampleInputEmail1" aria-describedby="emailHelp"
+          placeholder="Job Title">
+      <div class="form-errors mt-2">
+        <span class="text-danger" *ngIf="submitted && jobTitle['job_title'].errors?.['required']">Please enter your job title</span>
+      </div>
     </div>
 
-    <div class="form-group m-3" *ngIf="question == 12">
-      <label for="name">Do you have an ongoing loan?</label>
-      <select (change)="ongoingLoan($event)" class="form-select" aria-placeholder="select"
-        aria-label="Default select example" id="marital_status" [(ngModel)]="newApplication.marital_status"
-        name="marital_status" #marital_status="ngModel" required>
+    <div class="form-group m-3" *ngIf="question == 9" formGroupName="monthlyNetIncome">
+      <label for="name">Monthly Net Income</label>
+      <input type="number" class="form-control" formControlName="monthly_income"  id="exampleInputEmail1" aria-describedby="emailHelp"
+          placeholder="Monthly Net Income">
+
+      <div class="form-errors mt-2">
+        <span class="text-danger" *ngIf="submitted && monthlyNetIncome['monthly_income'].errors?.['required']">Please enter your monthly net income</span>
+      </div>
+      </div>
+    <div class="form-group m-3" *ngIf="question == 10" formGroupName="incomeProof">
+      <label for="name">Income Proof</label>
+      <input type="file" class="form-control" formControlName="income_proof"  id="exampleInputEmail1" aria-describedby="emailHelp"
+          placeholder="Income Proof">
+
+      <div class="form-errors mt-2">
+        <span class="text-danger" *ngIf="submitted && incomeProof['income_proof'].errors?.['required']">Please attach your income proof</span>
+      </div>
+    </div>
+
+    <div class="form-group m-3" *ngIf="question == 11" formGroupName="ongoingLoan">
+      <label for="name">Ongoing Loan</label>
+      <select (change)="ongoingLoanPayment($event)" class="form-select" formControlName="ongoing_loan" aria-placeholder="select"
+        aria-label="Default select example" id="ongoing_loan" required>
         <option value="" disabled selected>Select your option</option>
         <option value="Yes">Yes</option>
         <option value="No">No</option>
       </select>
+      <div class="form-errors mt-2">
+        <span class="text-danger" *ngIf="submitted && ongoingLoan['ongoing_loan'].errors?.['required']">Ongoing loan field required </span>
+      </div>
     </div>
-    <div class="form-group m-3" *ngIf="question == 13">
-      <label for="name">Monthly amount of existing loan</label>
-      <input (change)="monthlyLoanAmount($event)" type="number" class="form-control" placeholder="In $"
-        id="monthly_loan" [min]="0" [(ngModel)]="newApplication.monthly_amount_of_existing_loan"
-        name="monthly_amount_of_existing_loan" #monthly_amount_of_existing_loan="ngModel"  />
+    <div class="form-group m-3" *ngIf="question == 12" formGroupName="monthlyLoanAmount">
+      <label for="name">Monthly ongoing loan  amount</label>
+      <input type="number" class="form-control" formControlName="monthly_loan_amount"  id="exampleInputEmail1" aria-describedby="emailHelp"
+          placeholder="Monthly ongoing loan amount">
+      <div class="form-errors mt-2">
+        <span class="text-danger" *ngIf="submitted && monthlyLoanAmount['monthly_loan_amount'].errors?.['required']">Please enter your ongoing monthly loan amount</span>
+      </div>
     </div>
 
-    <div class="form-group m-3" *ngIf="question == 14">
-      <label for="name">Your current occupancy status</label>
-      <select (change)="occupancyStatus($event)" class="form-select" aria-placeholder="select"
-        aria-label="Default select example" id="occupancy_status" [(ngModel)]="newApplication.current_occupancy_status"
-        name="current_occupancy_status" #current_occupancy_status="ngModel" required>
+    <div class="form-group m-3" *ngIf="question == 13" formGroupName="occupancyStatus">
+      <label for="name">Occupancy Status</label>
+      <select  class="form-select" formControlName="occupancy_status" aria-placeholder="select"
+        aria-label="Default select example" id="occupancy_status" required>
         <option value="" disabled selected>Select your option</option>
         <option value="Homeowner">Homeowner</option>
         <option value="Tenant">Tenant</option>
@@ -115,53 +142,82 @@
         </option>
         <option value="Living in a hotel">Living in a hotel</option>
       </select>
+      <div class="form-errors mt-2">
+        <span class="text-danger" *ngIf="submitted && occupancyStatus['occupancy_status'].errors?.['required']">Please select your occupancy status</span>
+      </div>
     </div>
-
-    <div class="form-group m-3" *ngIf="question == 15">
+    <div class="form-group m-3" *ngIf="question == 14" formGroupName="typeOfPurchase">
       <label for="name">Type of Purchase</label>
-      <select (change)="purchaseType($event)" class="form-select" aria-placeholder="select"
-        aria-label="Default select example" id="purchase_type" [(ngModel)]="newApplication.type_of_purchase"
-        name="type_of_purchase" #type_of_purchase="ngModel" required>
+      <select  class="form-select" formControlName="purchase_type" aria-placeholder="select"
+        aria-label="Default select example" id="purchase_type" required>
         <option value="" disabled selected>Select your option</option>
         <option value="Primary Residence">Primary Residence</option>
         <option value="Secondary Residence">Secondary Residence</option>
         <option value="Investment">Investment</option>
         <option value="Close Person Residence">Close Person Residence</option>
       </select>
+      <div class="form-errors mt-2">
+       <span class="text-danger" *ngIf="submitted && typeOfPurchase['purchase_type'].errors?.['required']">Please select your type of purchase</span>
+      </div>
     </div>
 
-    <div class="form-group m-3" *ngIf="question == 16">
-      <label for="name">Bank Name</label>
-      <input (change)="bankName($event)" type="text" class="form-control" placeholder="Your bank name" id="bank_name"
-        [(ngModel)]="newApplication.bank_name" name="bank_name" #bank_name="ngModel" required />
-    </div>
+    <div class="form-group m-3" *ngIf="question == 15" formGroupName="bankAccount">
+      <label for="name">Bank Account</label>
+      <input type="text" class="form-control" formControlName="account_number"  id="exampleInputEmail1" aria-describedby="emailHelp"
+          placeholder="Bank Account Number">
+      <div class="form-errors mt-2">
+        <span class="text-danger" *ngIf="submitted && bankAccount['account_number'].errors?.['required']">Please enter your bank account number</span> <br>
+        <span class="text-danger" *ngIf="submitted && bankAccount['account_number'].errors?.['pattern']">Bank account number should be only digits</span> <br>
+        <span class="text-danger" *ngIf="submitted && bankAccount['account_number'].errors?.['minlength']">Bank account number should not be less than 7 digits</span>
+      </div>
 
-    <div class="form-group m-3" *ngIf="question == 17">
-      <label for="name">Bank Branch</label>
-      <input (change)="bankBranch($event)" type="text" class="form-control" placeholder="" id="bank_branch"
-        [(ngModel)]="newApplication.bank_branch" name="bank_branch" #bank_branch="ngModel" required />
-    </div>
-
-    <div class="form-group m-3" *ngIf="question == 18">
-      <label for="name">Bank Account Number</label>
-      <input (change)="bankAccount($event)" type="text" class="form-control" placeholder="" id="account_number"
-        [(ngModel)]="newApplication.account_number" name="account_number" #account_number="ngModel" required />
     </div>
 
     <div class="form-group m-3 buttons">
-      <button class="prev" *ngIf="question >= 2 && question <= 18" (click)="previous()">
+      <button class="prev" type="button" *ngIf="question >1 && question < 16" (click)="previous()">
         Previous
       </button>
 
-      <button class="next" *ngIf="question <= 18" (click)="next()">Next</button>
+      <button type="submit" class="next" *ngIf="question <= 15" >Next</button>
     </div>
   </div>
-
-  <div class="container-fluid details" *ngIf="question == 19">
+  <div class="container-fluid details" *ngIf="question == 16">
     <h6>Details</h6>
-    <p>Full Name: {{ first_name }} {{ last_name }}</p>
-    <p>ID: {{ id_number }}</p>
-    <p>ID Upload{{ id_upload }}</p>
-    <p>Phone Number: {{ phone_number }}</p>
+    <p>Full name: {{fullName['first_name'].value}} {{fullName['last_name'].value}} </p>
+    <p>ID number: {{idNumber['id_number'].value}} </p>
+    <p>ID upload: {{idUpload['id_upload'].value}} </p>
+    <p>Phone Number: {{phoneNumber['phone_number'].value}} </p>
+    <p>Email address: {{emailAddress['email'].value}} </p>
+    <p>Marital status: {{maritalStatus['marital_status'].value}} </p>
+    <p>Work place: {{workPlace['work_place'].value}} </p>
+    <p>Job title: {{jobTitle['job_title'].value}} </p>
+    <p>Monthly net income: {{monthlyNetIncome['monthly_income'].value}} </p>
+    <p>Income proof: {{incomeProof['income_proof'].value}} </p>
+    <p>Ongoing loan: {{ongoingLoan['ongoing_loan'].value}} </p>
+    <p>Monthly loan amount: {{monthlyLoanAmount['monthly_loan_amount'].value}} </p>
+    <p>Occupancy status: {{occupancyStatus['occupancy_status'].value}} </p>
+    <p>Type of purchase: {{typeOfPurchase['purchase_type'].value}} </p>
+    <p>Bank account: {{bankAccount['account_number'].value}} </p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <button type="submit" class="next" >Submit</button>
+
   </div>
-</form>
+  </form>
+
+
+

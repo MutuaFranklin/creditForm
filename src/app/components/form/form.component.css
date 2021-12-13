@@ -71,11 +71,12 @@ button{
 }
 
 
+.form-errors{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-.current-input {
-  background-color: #ffdddd;
 }
-
 
 
 

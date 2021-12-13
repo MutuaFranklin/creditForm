@@ -12,321 +12,288 @@ import { event } from 'jquery';
   styleUrls: ['./form.component.css']
 })
 export class FormComponent implements OnInit {
-
-  input: any;
+  public applicantData!: Array<any>
   question = 1;
-  form_alert:any = false;
-  current_view = this.question
-
-
-
-  step: any = 1;
   submitted: any = false;
+  ongoing_loan_payment!: string;
 
-  first_name!: string;
-  last_name!: string;
-  id_number!: string;
-  id_upload!: File;
-  phone_number!: string;
-  email_address!: string;
-  dob!: Date;
-  marital_status!:string;
-  work_place!:string;
-  job_title!:string;
-  monthly_net_income!: number;
-  income_proof!: File;
-  ongoing_loan!: string;
-  monthly_loan_amount!:number;
-  occupancy_status!: string;
-  type_of_purchase!: string;
-  bank_name!: string;
-  bank_branch!: string;
-  bank_account!: string;
-  CurrentDate = new Date();
-
-
-
-  firstName(event:any){
-    this.first_name = event.target.value;
-
-   }
-
-  lastName(event:any){
-    this.last_name = event.target.value;
-
-  }
-  idNumber(event:any){
-    this.id_number = event.target.value;
-
-   }
-
-   idUpload(event:any){
-    this.id_upload = event.target.files[0];
-   }
-
-   phoneNumber(event:any){
-    this.phone_number = event.target.value;
-
-   }
-
-  emailAddress(event:any){
-    this.email_address = event.target.value;
-
-   }
-
-  dateOfBirth(event:any){
-    this.dob = event.target.value;
-
-   }
-   maritalStatus(event:any){
-    this.marital_status = event.target.value;
-
-   }
-
-   workPlace(event:any){
-    this.work_place = event.target.value;
-
-   }
-
-   jobTitle(event:any){
-    this.job_title = event.target.value;
-
-   }
-   monthlyNetIncome(event:any){
-    this.monthly_net_income = event.target.value;
-
-   }
-
-   incomeProof(event:any){
-    this.income_proof = event.target.files[0];
-   }
-
-   ongoingLoan(event:any){
-    this.ongoing_loan = event.target.value;
-
-   }
-
-   monthlyLoanAmount(event:any){
-    this.monthly_loan_amount = event.target.value;
-
-   }
-
-   occupancyStatus(event:any){
-    this.occupancy_status = event.target.value;
-
-   }
-
-   purchaseType(event:any){
-    this.type_of_purchase = event.target.value;
-
-   }
-
-   bankName(event:any){
-    this.bank_name = event.target.value;
-
-   }
-
-   bankBranch(event:any){
-    this.bank_branch = event.target.value;
-
-   }
-
-   bankAccount(event:any){
-    this.bank_account = event.target.value;
+  ongoingLoanPayment(event:any){
+    this.ongoing_loan_payment = event.target.value;
 
    }
 
 
 
-  @Output() makeApplication = new EventEmitter<Questions>();
-  newApplication = new Questions (0, "", "", "","","","", new Date(), "", "", "", "",0, "","",0,"","","","","");
+  multistep = new FormGroup({
+    fullName: new FormGroup({
+        first_name: new FormControl('',[Validators.required, Validators.minLength(3)]),
+        last_name: new FormControl('', [Validators.required, Validators.minLength(3)])
+    }),
+    idNumber: new FormGroup({
+     id_number: new FormControl('',[Validators.required, Validators.minLength(8), Validators.pattern(/^-?(0|[1-9]\d*)?$/)])
+
+    }),
+    idUpload: new FormGroup({
+      id_upload: new FormControl('',Validators.required)
+    }),
+    phoneNumber: new FormGroup({
+      phone_number: new FormControl('',[Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")])
+    }),
+    emailAddress: new FormGroup({
+      email: new FormControl('',[Validators.required, Validators.email])
+    }),
+    maritalStatus: new FormGroup({
+      marital_status: new FormControl('',Validators.required)
+    }),
+    workPlace: new FormGroup({
+      work_place: new FormControl('',Validators.required)
+    }),
+    jobTitle: new FormGroup({
+      job_title: new FormControl('',Validators.required)
+    }),
+    monthlyNetIncome: new FormGroup({
+      monthly_income: new FormControl('',Validators.required)
+    }),
+    incomeProof: new FormGroup({
+      income_proof: new FormControl('',Validators.required)
+    }),
+    ongoingLoan: new FormGroup({
+      ongoing_loan: new FormControl('',Validators.required)
+    }),
+    monthlyLoanAmount: new FormGroup({
+      monthly_loan_amount: new FormControl('',Validators.required)
+    }),
+    occupancyStatus: new FormGroup({
+      occupancy_status: new FormControl('',Validators.required)
+    }),
+    typeOfPurchase: new FormGroup({
+      purchase_type: new FormControl('',Validators.required)
+    }),
+
+    bankAccount: new FormGroup({
+      account_number: new FormControl('',[Validators.required, Validators.minLength(7), Validators.pattern(/^-?(0|[1-9]\d*)?$/)])
+    }),
 
 
-  submitApplication(){
-    this.makeApplication.emit(this.newApplication)
-  }
+  })
+
+
+// get fullName() {
+//   return this.multistep.controls['fullName'];
+// }
+
+get fullName(){
+  return (this.multistep.controls['fullName'] as FormGroup).controls;
+
+}
+get idNumber(){
+  return (this.multistep.controls['idNumber'] as FormGroup).controls;
+
+}
+get idUpload(){
+  return (this.multistep.controls['idUpload'] as FormGroup).controls;
+
+}
+get phoneNumber(){
+  return (this.multistep.controls['phoneNumber'] as FormGroup).controls;
+
+}
+get emailAddress(){
+  return (this.multistep.controls['emailAddress'] as FormGroup).controls;
+
+}
+get maritalStatus(){
+  return (this.multistep.controls['maritalStatus'] as FormGroup).controls;
+
+}
+get workPlace(){
+  return (this.multistep.controls['workPlace'] as FormGroup).controls;
+
+}
+get jobTitle(){
+  return (this.multistep.controls['jobTitle'] as FormGroup).controls;
+
+}
+get monthlyNetIncome(){
+  return (this.multistep.controls['monthlyNetIncome'] as FormGroup).controls;
+
+}
+
+get incomeProof(){
+  return (this.multistep.controls['incomeProof'] as FormGroup).controls;
+
+}
+
+get ongoingLoan(){
+  return (this.multistep.controls['ongoingLoan'] as FormGroup).controls;
+
+}
+
+get monthlyLoanAmount(){
+  return (this.multistep.controls['monthlyLoanAmount'] as FormGroup).controls;
+
+}
+
+get occupancyStatus(){
+  return (this.multistep.controls['occupancyStatus'] as FormGroup).controls;
+
+}
+
+get typeOfPurchase(){
+  return (this.multistep.controls['typeOfPurchase'] as FormGroup).controls;
+
+}
+
+get bankAccount(){
+  return (this.multistep.controls['bankAccount'] as FormGroup).controls;
+
+}
+
+
+
+
+
+
 
   constructor(private formBuilder: FormBuilder) {
    }
 
   ngOnInit(): void {
 
-
-
-
   }
 
 
 
+  submit() {
 
+    if(this.multistep.controls['fullName'].invalid && this.question == 1) {
+      this.submitted = true;
+      return;
+    }
+    else {
+      this.submitted = false;
 
-  next(){
-      if (this.question == 1){
+    }
+    if(this.multistep.controls['idNumber'].invalid && this.question == 2) {
+      this.submitted = true;
+      return;
+    }
+    else {
+      this.submitted = false;
+    }
 
-        if (this.first_name && this.last_name){
-          this.question= this.question + 1
-        }
-        else if (this .question == 1 && !this.first_name || !this.last_name){
-          this.form_alert = true
-        }
+    if(this.multistep.controls['idUpload'].invalid && this.question == 3) {
+      this.submitted = true;
+      return;
+    }
+    else {
+      this.submitted = false;
+    }
 
-      }
+    if(this.multistep.controls['phoneNumber'].invalid && this.question == 4) {
+      this.submitted = true;
+      return;
+    }
+    else {
+      this.submitted = false;
 
-      if (this.question == 2){
+    }
+    if(this.multistep.controls['emailAddress'].invalid && this.question == 5) {
+      this.submitted = true;
+      return;
+    }
+    else {
+      this.submitted = false;
+    }
+    if(this.multistep.controls['maritalStatus'].invalid && this.question == 6) {
+      this.submitted = true;
+      return;
+    }
+    if(this.multistep.controls['workPlace'].invalid && this.question == 7) {
+      this.submitted = true;
+      return;
+    }
+    else {
+      this.submitted = false;
+    }
+    if(this.multistep.controls['jobTitle'].invalid && this.question == 8) {
+      this.submitted = true;
+      return;
+    }
+    else {
+      this.submitted = false;
+    }
+    if(this.multistep.controls['monthlyNetIncome'].invalid && this.question == 9) {
+      this.submitted = true;
+      return;
+    }
+    else {
+      this.submitted = false;
+    }
+    if(this.multistep.controls['incomeProof'].invalid && this.question == 10) {
+      this.submitted = true;
+      return;
+    }
+    else {
+      this.submitted = false;
+    }
+    if(this.multistep.controls['ongoingLoan'].invalid && this.question == 11) {
+      this.submitted = true;
+      return;
+    }
+    else {
+      this.submitted = false;
+    }
+    if(this.multistep.controls['monthlyLoanAmount'].invalid && this.question == 12) {
+      this.submitted = true;
+      return;
+    }
+    else {
+      this.submitted = false;
+    }
+    if(this.multistep.controls['occupancyStatus'].invalid && this.question == 13) {
+      this.submitted = true;
+      return;
+    }
+    else {
+      this.submitted = false;
+    }
+    if(this.multistep.controls['typeOfPurchase'].invalid && this.question == 14) {
+      this.submitted = true;
+      return;
+    }
+    else {
+      this.submitted = false;
+    }
 
-        if (this.id_number){
-          this.question= this.question + 1
+    if(this.multistep.controls['bankAccount'].invalid && this.question == 15) {
+      this.submitted = true;
+      return;
+    }
+    else {
+      this.submitted = false;
+    }
 
-        }
+    // if(this.multistep.controls['ongoingLoan'].value == "No" && this.question == 11) {
+    //   this.question = this.question + 2;
 
-        else{
-          this.form_alert = true
-        }
-      }
+    // }
+    if (this.question == 11 && this.ongoing_loan_payment == 'No') {
+      this.question = this.question + 2;
 
-      if (this.question == 3){
-        if (this.id_upload){
-          this.question= this.question + 1
+    }
+    else{
+      this.question = this.question + 1;
 
-        }
-      }
-
-      if (this.question == 4){
-        if (this.phone_number){
-          this.question= this.question + 1
-
-        }
-      }
-
-      if (this.question == 5){
-        if (this.email_address){
-          this.question= this.question + 1
-
-        }
-      }
-
-      if (this.question == 6){
-        if (this.dob && new Date(this.dob) < this.CurrentDate) {
-          this.question= this.question + 1
-
-        }
-
-        else if (this.dob && new Date(this.dob) > this.CurrentDate){
-          this.form_alert ==true
-        }
-      }
-
-      if (this.question == 7){
-        if (this.marital_status){
-          this.question= this.question + 1
-
-        }
-      }
-
-      if (this.question == 8){
-        if (this.work_place){
-          this.question= this.question + 1
-
-        }
-      }
-
-      if (this.question == 9){
-        if (this.job_title){
-          this.question= this.question + 1
-
-        }
-      }
-
-      if (this.question == 10){
-        if (this.monthly_net_income){
-          this.question= this.question + 1
-
-        }
-      }
-
-      if (this.question == 11){
-        if (this.income_proof){
-          this.question= this.question + 1
-
-        }
-      }
-
-      if (this.question == 12 && this.ongoing_loan == 'Yes') {
-        if (this.ongoing_loan){
-          this.question= this.question + 1
-
-        }
-      }
-      else if (this.question == 12 && this.ongoing_loan == 'No') {
-        if (this.ongoing_loan){
-          this.question= this.question + 2
-
-        }
-      }
-      if (this.question == 13){
-        if (this.monthly_loan_amount){
-          this.question= this.question + 1
-
-        }
-      }
-
-      if (this.question == 14){
-        if (this.occupancy_status){
-          this.question= this.question + 1
-
-        }
-      }
-
-      if (this.question == 15){
-        if (this.type_of_purchase){
-          this.question= this.question + 1
-
-        }
-      }
-
-      if (this.question == 16){
-        if (this.bank_name){
-          this.question= this.question + 1
-
-        }
-      }
-
-      if (this.question == 17){
-        if (this.bank_branch){
-          this.question= this.question + 1
-
-        }
-      }
-
-      if (this.question == 18){
-        if (this.bank_account.length > 0){
-          this.question= this.question + 1
-
-        }
-      }
-
-
-
-
-
-
-
-
-
-
-
-
+    }
 
 
   }
 
-  previous(){
+  previous() {
+    if (this.question == 13 && this.ongoing_loan_payment == 'No') {
+      this.question= this.question - 2
 
-    if (this.question == 14 && this.ongoing_loan == 'No') {
-      if (this.ongoing_loan.length > 0){
-        this.question= this.question - 2
-
-      }
     }
     else{
           this.question= this.question - 1
@@ -334,9 +301,17 @@ export class FormComponent implements OnInit {
     }
   }
 
-  validateFormField(){
 
-  }
+
+
+
+
+
+
+
+
+
+
 
 
 
