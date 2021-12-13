@@ -51,12 +51,14 @@ ul.list {
 
 
 .main{
-  height: auto;
+  height: 122vh;
   background-color: #fbf2ea;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
+
 
 
 .intro h3{
