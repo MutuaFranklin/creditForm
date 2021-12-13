@@ -1,0 +1,30 @@
+.navbar li a{
+  font-weight: 600;
+  color: rgb(54, 8, 8);
+}
+
+.navbar li a:hover{
+  color: #ee7023;
+}
+
+
+
+
+
+@media only screen and (max-width: 600px) {
+
+  .navbar-brand img{
+    height: 50px;
+  }
+
+  .navbar li a{
+   font-size: 13px;
+
+  }
+
+
+}
+
+
+
+

@@ -16,8 +16,6 @@ form{
 
 }
 
-
-
 .full-name input
 {
   margin-top: 4px;
@@ -129,6 +127,33 @@ button{
 
 @media only screen and (max-width: 600px) {
 
+  label{
+    font-size: 13px;
+  }
+
+  input, select{
+    height: 40px;
+
+  }
+
+  input::placeholder{
+    
+  }
+
+
+  button{
+    height: 40px;
+    width: 100px;
+    font-size: 13px;
+    border-radius: 25px;
+    border: 2px solid white;
+  }
+
+  .form-errors{
+    font-size: 13px;
+
+  }
+
   .full-name input
 {
   margin-right: 4px;
@@ -136,7 +161,7 @@ button{
 }
 
 
-  .form-input{
+.form-input{
     display: flex;
     margin-top: 50%;
     flex-direction: column;
