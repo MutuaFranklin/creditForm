@@ -1,0 +1,18 @@
+.home{
+  display: flex;
+  height: 50vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.home h1{
+  color: brown;
+  font-weight: bold;
+}
+
+
+@media only screen and (max-width: 600px) {
+  .home h1{
+    font-size: 16px;
+  }
+}
