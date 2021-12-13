@@ -160,6 +160,16 @@ get bankAccount(){
 
   ngOnInit(): void {
 
+      // Jquery
+      $('.final-btn').on('click', function () {
+        $('.form-input').hide();
+        $('.details').fadeIn(1000);
+        $('.details').css("display", "flex");
+
+
+
+      });
+
   }
 
 
@@ -305,7 +315,7 @@ get bankAccount(){
           this.question= 1
 
     }
-  
+
 }
 
 

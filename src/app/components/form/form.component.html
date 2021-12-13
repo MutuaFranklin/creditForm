@@ -179,12 +179,13 @@
       <button class="prev" type="button" *ngIf="question >1 && question < 16" (click)="previous()">
         Previous
       </button>
+      <button type="submit" class="next" *ngIf="question <= 14" >Next</button>
+      <button  class="next final-btn" *ngIf="question == 15" >Next</button>
 
-      <button type="submit" class="next" *ngIf="question <= 15" >Next</button>
     </div>
   </div>
-  <div class="container-fluid details" *ngIf="question == 16">
-    <h6>Details</h6>
+  <div class="col-md-6 details">
+    <h3>Mortgage loan Application Details</h3>
     <p>Full name: {{fullName['first_name'].value}} {{fullName['last_name'].value}} </p>
     <p>ID number: {{idNumber['id_number'].value}} </p>
     <p>ID upload: {{idUpload['id_upload'].value}} </p>
@@ -196,14 +197,14 @@
     <p>Monthly net income: {{monthlyNetIncome['monthly_income'].value}} </p>
     <p>Income proof: {{incomeProof['income_proof'].value}} </p>
     <p>Ongoing loan: {{ongoingLoan['ongoing_loan'].value}} </p>
-    <p>Monthly loan amount: {{monthlyLoanAmount['monthly_loan_amount'].value}} </p>
+    <p *ngIf="ongoing_loan_payment == 'Yes'">Monthly loan amount: {{monthlyLoanAmount['monthly_loan_amount'].value}} </p>
     <p>Occupancy status: {{occupancyStatus['occupancy_status'].value}} </p>
     <p>Type of purchase: {{typeOfPurchase['purchase_type'].value}} </p>
     <p>Bank account: {{bankAccount['account_number'].value}} </p>
 
-    <div class="buttons">
+    <div class="last-buttons mt-4">
       <button type="submit" class="edit" (click)="makeChanges()" >Make changes</button>
-      <button type="submit" class="next" >Submit</button>
+      <button type="submit" class="submit" >Submit</button>
 
     </div>
 
