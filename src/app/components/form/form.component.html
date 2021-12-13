@@ -1,5 +1,5 @@
 <form (ngSubmit)="submit()" enctype="multipart/form-data" class="appForm" [formGroup]="multistep">
-  <div class="col-md-5 form-input">
+  <div class="col-md-5 form-input" ng-hide="question == 16">
     <div class="form-group m-3" *ngIf="question == 1" formGroupName="fullName">
       <label for="name">Full Name</label>
       <div class="full-name d-flex">
@@ -45,8 +45,10 @@
       <label for="name">Phone Number</label>
       <input type="text" class="form-control" formControlName="phone_number"  id="exampleInputEmail1" aria-describedby="emailHelp"
           placeholder="Phone Number">
-      <span class="text-danger mt-4" *ngIf="submitted && phoneNumber['phone_number'].errors?.['required']">Please enter your Phone Number</span>
-      <span class="text-danger mt-4" *ngIf="submitted && phoneNumber['phone_number'].errors?.['pattern']">Phone number is not 10 digit</span>
+      <div class="form-errors mt-2">
+        <span class="text-danger" *ngIf="submitted && phoneNumber['phone_number'].errors?.['required']">Please enter your Phone Number</span>
+        <span class="text-danger" *ngIf="submitted && phoneNumber['phone_number'].errors?.['pattern']">Phone number is not 10 digit</span>
+      </div>
     </div>
     <div class="form-group m-3" *ngIf="question == 5" formGroupName="emailAddress">
       <label for="name">Email Address</label>
@@ -199,22 +201,11 @@
     <p>Type of purchase: {{typeOfPurchase['purchase_type'].value}} </p>
     <p>Bank account: {{bankAccount['account_number'].value}} </p>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <div class="buttons">
+      <button type="submit" class="edit" (click)="makeChanges()" >Make changes</button>
       <button type="submit" class="next" >Submit</button>
+
+    </div>
 
   </div>
   </form>

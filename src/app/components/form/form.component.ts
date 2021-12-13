@@ -301,20 +301,11 @@ get bankAccount(){
     }
   }
 
+  makeChanges() {
+          this.question= 1
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }
+  
 }
 
 

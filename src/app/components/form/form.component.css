@@ -8,9 +8,10 @@ form{
 
 .form-input{
   display: flex;
-  margin-top: 23%;
+  margin-top: 16%;
   flex-direction: column;
   justify-content: center;
+  display: hide;
 
 
 }
@@ -75,6 +76,16 @@ button{
   display: flex;
   flex-direction: column;
   align-items: center;
+
+}
+
+.details{
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
+  background-color: rgb(212, 209, 162, 0.5);
 
 }
 
