@@ -123,9 +123,10 @@
         <span class="text-danger" *ngIf="submitted && ongoingLoan['ongoing_loan'].errors?.['required']">Ongoing loan field required </span>
       </div>
     </div>
+
     <div class="form-group m-3" *ngIf="question == 12" formGroupName="monthlyLoanAmount">
       <label for="name">Monthly ongoing loan  amount in dollars</label>
-      <input type="number" class="form-control" formControlName="monthly_loan_amount"  id="exampleInputEmail1" aria-describedby="emailHelp"
+      <input type="number" class="form-control" formControlName="monthly_loan_amount" [defaultValue]=0 id="exampleInputEmail1" aria-describedby="emailHelp"
           placeholder="Monthly ongoing loan amount">
       <div class="form-errors mt-2">
         <span class="text-danger" *ngIf="submitted && monthlyLoanAmount['monthly_loan_amount'].errors?.['required']">Please enter your ongoing monthly loan amount</span>

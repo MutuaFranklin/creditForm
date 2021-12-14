@@ -63,9 +63,13 @@ export class FormComponent implements OnInit {
     ongoingLoan: new FormGroup({
       ongoing_loan: new FormControl('',Validators.required)
     }),
+
     monthlyLoanAmount: new FormGroup({
-      monthly_loan_amount: new FormControl('',Validators.required)
+        monthly_loan_amount: new FormControl('')
     }),
+    requiredMonthlyLoanAmount: new FormGroup({
+      monthly_loan_amount: new FormControl('',)
+  }),
     occupancyStatus: new FormGroup({
       occupancy_status: new FormControl('',Validators.required)
     }),
