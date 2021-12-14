@@ -300,7 +300,7 @@ get bankAccount(){
     if( this.multistep_submit){
       // console.warn(this.multistep.value)
       alert("Form submitted successfully")
-      this.router.navigate(['/main']);
+      window.location.reload()
 
 
 
@@ -342,6 +342,8 @@ clickEvent(){
 
     submitForm() {
       this.multistep_submit = !this.multistep_submit
+
+
 
 
     }
