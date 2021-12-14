@@ -65,11 +65,9 @@ export class FormComponent implements OnInit {
     }),
 
     monthlyLoanAmount: new FormGroup({
-        monthly_loan_amount: new FormControl('')
+        monthly_loan_amount: new FormControl('', Validators.required)
     }),
-    requiredMonthlyLoanAmount: new FormGroup({
-      monthly_loan_amount: new FormControl('',)
-  }),
+
     occupancyStatus: new FormGroup({
       occupancy_status: new FormControl('',Validators.required)
     }),
@@ -258,6 +256,7 @@ get bankAccount(){
     else {
       this.submitted = false;
     }
+
     if(this.multistep.controls['monthlyLoanAmount'].invalid && this.question == 12) {
       this.submitted = true;
       return;
@@ -300,6 +299,8 @@ get bankAccount(){
       this.question = this.question + 1;
 
     }
+
+
 
     if( this.multistep_submit){
       // console.warn(this.multistep.value)
