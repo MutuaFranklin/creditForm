@@ -65,7 +65,7 @@ form.
 
 ## Live link
 
-Live link: [swedForm live link](https://pyhomeservicies.herokuapp.com/)
+Live link: [swedForm live link](https://mutuafranklin.github.io/creditForm/)
 
 ## Support and contact details
 
