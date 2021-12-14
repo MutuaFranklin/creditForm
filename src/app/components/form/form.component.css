@@ -86,6 +86,7 @@ button{
   display: flex;
   flex-direction: column;
   font-weight: lighter;
+  font-size: 15px;
 
 
 }

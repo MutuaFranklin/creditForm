@@ -3,6 +3,7 @@ import { FormControl ,FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Questions } from 'src/app/models/questions';
 import { DOCUMENT } from '@angular/common'
 import { event } from 'jquery';
+import { Router } from '@angular/router';
 
 
 
@@ -154,10 +155,7 @@ get bankAccount(){
 
 
 
-
-
-
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private router: Router) {
    }
 
   ngOnInit(): void {
@@ -302,6 +300,10 @@ get bankAccount(){
     if( this.multistep_submit){
       // console.warn(this.multistep.value)
       alert("Form submitted successfully")
+      this.router.navigate(['/main']);
+
+
+
 
     }
 
@@ -340,6 +342,7 @@ clickEvent(){
 
     submitForm() {
       this.multistep_submit = !this.multistep_submit
+
 
     }
 
